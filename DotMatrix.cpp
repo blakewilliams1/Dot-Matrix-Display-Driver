@@ -11,10 +11,10 @@ void DotMatrix::showText(String text, int displayMs, int scrollMs) {
   }
 
   int textLength = text.length();
-  int scrollTime = millis();
+  unsigned long scrollTime = millis();
   int scrollOffset = 0;
   
-  int startTime = millis();
+  unsigned long startTime = millis();
   while(millis() - startTime < displayMs) {
 	// Increment scroll offset at the desired rate.
     if (scrollMs > 0 && millis() - scrollTime > scrollMs) {
@@ -52,9 +52,10 @@ void DotMatrix::showHackerText(String text, int displayMs) {
   int charsPerIncrement = 5;
   int decodePerCharTime = 150;
   int scrabbleInstantTime = decodePerCharTime / charsPerIncrement;
+  char decoderText[textLength] = {0};
   // Outer loop for each frame change
   for (int i = 0; i < textLength * charsPerIncrement; i++) {
-    char decoderText[textLength];
+    decoderText[textLength] = {0};
     // Adds legitimate text to screen
     for (int j = 0; j < i / charsPerIncrement; j++) {
       decoderText[j] = text[j];
